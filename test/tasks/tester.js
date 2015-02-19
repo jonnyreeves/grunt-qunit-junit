@@ -58,6 +58,7 @@ module.exports = function (grunt) {
             single_html: {
                 options: {
                     dest: '_build/single_html',
+                    htmlReport: true,
                     fileNamer: function (url) {
                         var match = url.match(/test=(.*)$/);
                         return match[1].replace(/\//g, '.');

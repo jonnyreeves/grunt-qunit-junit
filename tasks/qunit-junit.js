@@ -13,6 +13,7 @@ module.exports = function (grunt) {
     var _ = require('underscore'),
         path = require('path'),
         XmlReporter = require('../lib/XmlReporter'),
+        HtmlReporter = require('../lib/HtmlReporter'),
 
         Runner,
         current;
@@ -21,6 +22,7 @@ module.exports = function (grunt) {
         this.options = options;
 
         this.reporter = new XmlReporter(options);
+        this.htmlReporter = new HtmlReporter();
         this.url = "";
         this.modules = [];
         this.tests = [];
@@ -166,6 +168,11 @@ module.exports = function (grunt) {
 
             grunt.log.debug("Writing results to " + filePath);
             grunt.file.write(filePath, report);
+
+            if (this.options.htmlReport) {
+                this.htmlReporter.generateReport(filePath, filePath.replace(/xml$/, 'html'), function () {
+                });
+            }
 
             this.url = null;
             this.modules = [];

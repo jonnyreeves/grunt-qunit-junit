@@ -71,6 +71,12 @@ Default value: `function (testName, moduleName, url) { return testName; }`
 
 Specify a function that converts the supplied test name, module name and URL into the value used in the report's 'name' attribute. Note that if the test did not belong to a module, the string `'global'` will be passed.
 
+#### options.htmlReport
+Type: `Boolean` or `Object`
+Default value: `false`
+
+Generate an HTML report; requires `xsltproc` to be present on your system's PATH (typically present on Mac and Linux systems).
+
 ### Usage Examples
 
 To trigger the XML reporting, simply call the `qunit_junit` task **before** you call the `qunit` task. A report will be created for all tests run by QUnit.
@@ -82,6 +88,18 @@ grunt.registerTask('test', ['connect:server', 'qunit_junit', 'qunit']);
 ```
 
 If you call the `qunit_junit` task again, then the existing reporter will be detached and the new one will report in its place.
+
+You can generate HTML reports by setting the `htmlReport` option; this will generate a default JUnit report using `xsltproc` present on your system's PATH.
+
+```js
+grunt.initConfig({
+  'qunit_junit': {
+    options: {
+      htmlReport: true
+    }
+  }
+});
+```
 
 ## Example reports
 
